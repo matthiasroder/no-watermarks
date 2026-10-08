@@ -9,8 +9,7 @@ the API and retain previous successful turns.
 cannot disable it per request or verify its absence. Disable **Allow text
 watermarking** in the relevant account settings before relying on this workflow.
 See [OpenAI's provenance documentation](https://help.openai.com/en/articles/8912793-provenance-signals-in-openai-generated-content).
-The supplied paper in `docs/` concerns statistical token patterns, not hidden
-characters. Copied passages may retain a pre-existing signal.
+Copied passages may retain a pre-existing watermark signal.
 
 ## Setup
 
