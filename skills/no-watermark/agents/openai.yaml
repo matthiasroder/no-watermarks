@@ -1,0 +1,4 @@
+interface:
+  display_name: "No Watermark"
+  short_description: "Create publication text through the OpenAI API"
+  default_prompt: "Use $no-watermark to draft publication-ready text through my configured OpenAI API project."

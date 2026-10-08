@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+.DS_Store
+.env
+.env.*
+config.toml
+logs/
+conversations/
+output/
+*.lock
