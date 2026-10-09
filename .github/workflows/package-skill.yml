@@ -1,0 +1,35 @@
+name: Package ChatGPT skill
+
+on:
+  workflow_dispatch:
+    inputs:
+      mcp_url:
+        description: "Optional deployed HTTPS MCP URL; leave blank for ChatGPT-native mode"
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build package
+        env:
+          MCP_URL: ${{ inputs.mcp_url }}
+        run: |
+          if [ -n "$MCP_URL" ]; then
+            python3 scripts/package_skill.py --mcp-url "$MCP_URL"
+          else
+            python3 scripts/package_skill.py
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: no-watermark-skill
+          path: skill.zip
+          if-no-files-found: error

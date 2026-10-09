@@ -1,8 +1,18 @@
 # no-watermarks
 
-A small Python script and Codex skill that send publication-writing prompts to
-OpenAI and save the API calls and conversation in a JSON file.
-Requires Python 3.11+; no dependencies.
+A publication-writing skill with three explicit execution paths:
+
+- ChatGPT web can use the skills-only `skill.zip` and draft with ChatGPT
+  directly, without another API key or external API claim.
+- A ChatGPT plugin can call the Responses API through the separately deployed,
+  OAuth-protected `web-proxy/` service.
+- Codex CLI keeps the original dependency-free Python bridge and private
+  `config.toml` workflow.
+
+No path can guarantee that text is watermark-free. See
+[CHATGPT_WEB_SETUP.md](CHATGPT_WEB_SETUP.md) for the documented web limitation,
+browser installation, authenticated option, costs, and verification steps. See
+[ARCHITECTURE.md](ARCHITECTURE.md) for the security boundary.
 
 ## Configure
 
@@ -43,7 +53,7 @@ The interface and config are intentionally small: one model, stdin input, and
 JSON output. Requests use `store: false`, and the script makes no automatic
 retries. Only run one process at a time for a given log file.
 
-## Skill
+## Local Codex skill
 
 ```sh
 mkdir -p ~/.codex/skills
@@ -54,6 +64,26 @@ Invoke `/no-watermark` or `$no-watermark`. The skill sends the brief to the API,
 reads the JSON, and delivers the exact API text. ChatGPT needs an execution
 environment with Python, file access, and the private config to use it.
 
+## ChatGPT package
+
+`skill.zip` is a skills-only ChatGPT plugin package containing exactly one
+skill. Build it reproducibly with:
+
+```sh
+python3 scripts/package_skill.py
+```
+
+That package uses ChatGPT directly and says so. It does not make a separate API
+call. After deploying `web-proxy/`, build the API-backed variant with:
+
+```sh
+python3 scripts/package_skill.py --mcp-url https://your-host.example/mcp
+```
+
+The GitHub Actions **Package ChatGPT skill** workflow performs either build from
+a browser, so an installer does not need a local terminal. Never put an API key
+in the ZIP or workflow input.
+
 Watermarking depends on your API project/organization settings: disable
 **Allow text watermarking** there. This script cannot verify its absence or
 disable it per request. See [OpenAI's provenance documentation](https://help.openai.com/en/articles/8912793-provenance-signals-in-openai-generated-content).
@@ -62,4 +92,5 @@ disable it per request. See [OpenAI's provenance documentation](https://help.ope
 
 ```sh
 python3 -m unittest discover -s tests -v
+(cd web-proxy && npm ci && npm test)
 ```

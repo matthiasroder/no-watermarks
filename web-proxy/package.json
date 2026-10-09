@@ -1,0 +1,19 @@
+{
+  "name": "no-watermark-mcp-proxy",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Authenticated MCP proxy for the no-watermark ChatGPT plugin",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "jose": "6.2.12",
+    "zod": "4.6.5"
+  }
+}

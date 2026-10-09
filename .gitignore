@@ -9,3 +9,5 @@ logs/
 conversations/
 output/
 *.lock
+!web-proxy/package-lock.json
+node_modules/

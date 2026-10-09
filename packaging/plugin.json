@@ -1,0 +1,33 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "no-watermark",
+  "version": "0.2.0",
+  "description": "Draft and revise publication-ready text with an explicit choice between ChatGPT-native generation and an authenticated OpenAI Responses API connection.",
+  "author": {
+    "name": "Matthias Röder",
+    "url": "https://github.com/matthiasroder"
+  },
+  "homepage": "https://github.com/matthiasroder/no-watermarks",
+  "repository": "https://github.com/matthiasroder/no-watermarks",
+  "keywords": [
+    "writing",
+    "publishing",
+    "openai"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "No Watermark",
+        "shortDescription": "Publication writing with explicit provenance",
+        "longDescription": "Draft and revise publication-ready text. The skill distinguishes direct ChatGPT generation from calls made through an authenticated OpenAI Responses API proxy and never guarantees watermark-free output.",
+        "developerName": "Matthias Röder",
+        "category": "Productivity",
+        "capabilities": ["Write"],
+        "websiteURL": "https://github.com/matthiasroder/no-watermarks",
+        "defaultPrompt": [
+          "Use No Watermark to draft publication-ready copy and state which execution path is available."
+        ]
+      }
+    }
+  }
+}
